@@ -16,7 +16,6 @@ const QUERY = gql`
 export default function Country() {
     const { data, loading, error } = useQuery(QUERY);
 
-    // Animation variants
     const container = {
         hidden: { opacity: 0 },
         show: {
@@ -49,7 +48,7 @@ export default function Country() {
         );
     }
 
-    const countries = data.countries.slice(0, 10);
+    const countries = data.countries.slice(0, 20);
 
     return (
         <motion.div

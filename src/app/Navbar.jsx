@@ -97,7 +97,7 @@ export default function Navbar() {
               <div className="py-1">
                 <MenuItem>
                   <a
-                    href="/Pages/career"
+                    href="/Pages/on_dev/frm_val_crud/career"
                     className="block px-4 py-2 data-focus:bg-gray-100  data-focus:text-gray-900 data-focus:outline-hidden"
                   >
                     Career
@@ -105,7 +105,7 @@ export default function Navbar() {
                 </MenuItem>
                 <MenuItem>
                   <a
-                    href="/Pages/employer"
+                    href="/Pages/on_dev/frm_val_crud/employer"
                     className="block px-4 py-2 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                   >
                     Employer
@@ -115,7 +115,7 @@ export default function Navbar() {
               <div className="py-1">
                 <MenuItem>
                   <a
-                    href="/Pages/on_dev"
+                    href="/Pages/on_dev/country_api"
                     className="block px-4 py-2 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                   >
                     GraphQL
