@@ -1,5 +1,5 @@
 "use client";
-import Formv2 from "@/components/Formv2";
+import Formv2 from "@/src/components/UI/Form/Formv2";
 
 export default function Career() {
   return (

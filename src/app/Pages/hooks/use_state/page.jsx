@@ -1,5 +1,5 @@
 import React from 'react'
-import UseState from "@/src/components/hooks/use_state/use_state";
+import UseState from "@/src/components/Pages/Hooks/use_state/use_state";
 
 const page = () => {
   return (

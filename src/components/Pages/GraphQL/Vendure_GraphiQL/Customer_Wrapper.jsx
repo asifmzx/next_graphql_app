@@ -1,17 +1,14 @@
 import React from 'react';
-import ClientOnly from "../lib/api";
-import Country from "../others/Country";
-
-
+import ClientOnly from "../../../lib/api";
+import Customer from "./Customer";
 
 export default function AllCountry() {
 
     return (
         <>
             <ClientOnly>
-                <Country />
+                <Customer />
             </ClientOnly>
         </>
     );
 };
-

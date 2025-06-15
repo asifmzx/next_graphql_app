@@ -1,11 +1,9 @@
 import React from 'react'
-
+import UseEffect from '@/src/components/Pages/Hooks/use_effect/use_effect';
 const page = () => {
     return (
         <div>
-            <h2 className="font-bold text-7xl text-center h-auto w-auto mt-[15%] px-4">
-                Under Development 🔥🔥
-            </h2>
+            <UseEffect />
         </div>
     )
 }

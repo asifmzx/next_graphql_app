@@ -1,11 +1,9 @@
 "use client";
 import React from "react";
-import createApolloClient from "../../../../apollo-client";
+import client from "@/src/apollo-client";
 import { ApolloProvider } from "@apollo/client";
 
-import AllCountry from "../../../../components/others/AllCountry";
-
-const client = createApolloClient();
+import AllCountry from "@/src/components/Pages/GraphQL/Vendure_GraphiQL/Customer_Wrapper";
 
 export default function Home() {
   return (

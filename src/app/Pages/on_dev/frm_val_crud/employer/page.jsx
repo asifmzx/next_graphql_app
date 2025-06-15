@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import AllEmployee from "@/components/AllEmployee";
+import AllEmployee from "@/src/components/others/AllEmployee";
 
 export default function page() {
   return (

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import DeleteButton from "./DeleteButton";
+import DeleteButton from "../UI/Button/DeleteButton";
 import { FaRegEdit } from "react-icons/fa";
 
 const Employee = ({ employee }) => {

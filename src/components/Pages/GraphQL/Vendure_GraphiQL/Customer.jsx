@@ -3,17 +3,24 @@ import { useQuery, gql } from "@apollo/client";
 import { motion } from "framer-motion";
 
 const QUERY = gql`
-  query Countries {
-    countries {
-      code
-      name
-      emoji
-      phone
+{
+  customers(options: {skip: 0, take: 3, sort: {id: ASC}}) {
+    totalItems
+    items {
+      id
+      title
+      firstName
+      lastName
+      createdAt
+      updatedAt
+      emailAddress
+      phoneNumber
     }
   }
+}
 `;
 
-export default function Country() {
+export default function Customer() {
     const { data, loading, error } = useQuery(QUERY);
 
     const container = {
@@ -40,15 +47,14 @@ export default function Country() {
     }
 
     if (error) {
-        console.error(error);
         return (
             <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                Error loading countries
+                Error loading customers: {error.message}
             </div>
         );
     }
 
-    const countries = data.countries.slice(0, 20);
+    const customers = data?.customers?.items || [];
 
     return (
         <motion.div
@@ -57,31 +63,28 @@ export default function Country() {
             initial="hidden"
             animate="show"
         >
-            {countries.map((country) => (
+            {customers.map((customer) => (
                 <motion.div
-                    key={country.code}
-
+                    key={customer.id}
                     className="rounded-xl shadow-md overflow-hidden border dark:border-red-500 hover:shadow-lg transition-all duration-300"
-
                     variants={item}
-
                     whileHover={{
                         y: -5,
                         boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'
                     }}
                 >
-                    <div className=" bg-white/40 p-6 flex flex-col items-center">
-                        <div className="text-5xl mb-4">{country.emoji}</div>
+                    <div className="bg-white/40 p-6 flex flex-col items-center">
+                        <div className="text-5xl mb-4">👤</div>
                         <div className="text-center">
                             <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                                {country.name}
+                                {customer.firstName} {customer.lastName}
                             </h3>
                             <div className="flex justify-center space-x-3">
                                 <span className="text-sm text-gray-600 bg-gray-100 rounded-full px-3 py-1">
-                                    {country.code}
+                                    ID: {customer.id}
                                 </span>
                                 <span className="text-sm text-gray-600 bg-gray-100 rounded-full px-3 py-1">
-                                    +{country.phone}
+                                    {customer.title}
                                 </span>
                             </div>
                         </div>

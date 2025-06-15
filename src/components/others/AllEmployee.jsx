@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
-import Formv2 from "./Formv2";// Import your existing form component
+import Formv2 from "../UI/Form/Formv2";// Import your existing form component
 
 const EmployeeGrid = () => {
     const [employees, setEmployees] = useState([]);
