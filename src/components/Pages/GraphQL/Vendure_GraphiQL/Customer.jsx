@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const QUERY = gql`
 {
-  customers(options: {skip: 0, take: 3, sort: {id: ASC}}) {
+  customers(options: {skip: 0, take: 6, sort: {id: ASC}}) {
     totalItems
     items {
       id
@@ -55,42 +55,78 @@ export default function Customer() {
     }
 
     const customers = data?.customers?.items || [];
+    const totalItems = data?.customers?.totalItems || 0;
 
     return (
-        <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6"
-            variants={container}
-            initial="hidden"
-            animate="show"
-        >
-            {customers.map((customer) => (
-                <motion.div
-                    key={customer.id}
-                    className="rounded-xl shadow-md overflow-hidden border dark:border-red-500 hover:shadow-lg transition-all duration-300"
-                    variants={item}
-                    whileHover={{
-                        y: -5,
-                        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'
-                    }}
-                >
-                    <div className="bg-white/40 p-6 flex flex-col items-center">
-                        <div className="text-5xl mb-4">👤</div>
-                        <div className="text-center">
-                            <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                                {customer.firstName} {customer.lastName}
-                            </h3>
-                            <div className="flex justify-center space-x-3">
-                                <span className="text-sm text-gray-600 bg-gray-100 rounded-full px-3 py-1">
-                                    ID: {customer.id}
-                                </span>
-                                <span className="text-sm text-gray-600 bg-gray-100 rounded-full px-3 py-1">
-                                    {customer.title}
-                                </span>
+        <div className="p-6">
+            <div className="mb-6">
+                <h2 className="text-2xl font-bold mb-2">Customers</h2>
+                <p>Total customers: {totalItems}</p>
+            </div>
+
+            <motion.div
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                variants={container}
+                initial="hidden"
+                animate="show"
+            >
+                {customers.map((customer) => (
+                    <motion.div
+                        key={customer.id}
+                        className="rounded-xl shadow-md overflow-hidden border dark:border-red-500 hover:shadow-lg transition-all duration-300 bg-white"
+                        variants={item}
+                        whileHover={{
+                            y: -5,
+                            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'
+                        }}
+                    >
+                        <div className="p-6">
+                            <div className="flex items-center mb-4">
+                                <div className="text-4xl mr-4">👤</div>
+                                <div>
+                                    <h3 className="text-xl font-semibold text-gray-800">
+                                        {customer.firstName} {customer.lastName}
+                                    </h3>
+                                    <span className="text-sm text-gray-500 bg-gray-100 rounded-full px-2 py-1">
+                                        {customer.title}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className="space-y-3">
+                                <div className="flex items-center text-sm text-gray-600">
+                                    <span className="font-medium w-20">ID:</span>
+                                    <span>{customer.id}</span>
+                                </div>
+
+                                {customer.emailAddress && (
+                                    <div className="flex items-center text-sm text-gray-600">
+                                        <span className="font-medium w-20">Email:</span>
+                                        <span className="truncate">{customer.emailAddress}</span>
+                                    </div>
+                                )}
+
+                                {customer.phoneNumber && (
+                                    <div className="flex items-center text-sm text-gray-600">
+                                        <span className="font-medium w-20">Phone:</span>
+                                        <span>{customer.phoneNumber}</span>
+                                    </div>
+                                )}
+
+                                <div className="flex items-center text-sm text-gray-600">
+                                    <span className="font-medium w-20">Created:</span>
+                                    <span>{new Date(customer.createdAt).toLocaleDateString()}</span>
+                                </div>
+
+                                <div className="flex items-center text-sm text-gray-600">
+                                    <span className="font-medium w-20">Updated:</span>
+                                    <span>{new Date(customer.updatedAt).toLocaleDateString()}</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </motion.div>
-            ))}
-        </motion.div>
+                    </motion.div>
+                ))}
+            </motion.div>
+        </div>
     );
 }
