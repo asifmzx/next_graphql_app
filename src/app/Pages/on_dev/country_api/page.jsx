@@ -3,7 +3,7 @@ import React from "react";
 import createApolloClient from "../../../../apollo-client";
 import { ApolloProvider } from "@apollo/client";
 
-import AllCountry from "../../../../components/AllCountry";
+import AllCountry from "../../../../components/others/AllCountry";
 
 const client = createApolloClient();
 

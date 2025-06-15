@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import createApolloClient from "../apollo-client";
+import createApolloClient from "../../apollo-client";
 
 export async function getStaticProps() {
     const client = createApolloClient();

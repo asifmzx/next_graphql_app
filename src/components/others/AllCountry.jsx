@@ -1,6 +1,6 @@
 import React from 'react';
-import ClientOnly from "../components/lib/api";
-import Country from "../components/Country";
+import ClientOnly from "../lib/api";
+import Country from "../others/Country";
 
 
 
