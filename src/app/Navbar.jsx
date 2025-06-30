@@ -66,6 +66,12 @@ export default function Navbar() {
           >
             Contact Us
           </a>
+          <a
+            className="hover:text-[#c2cc33] font-extrabold"
+            href="/Pages/test"
+          >
+            Test<sub className="Dev text-xs text-red-600 mt-1">dev</sub>
+          </a>
 
           {/* <Link
             href="/Pages/employer"
