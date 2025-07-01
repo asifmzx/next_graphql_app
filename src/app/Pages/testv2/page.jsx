@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import { productData } from './data/productData'
+import row_form from './component/row_form'
 
 const page = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -62,21 +63,10 @@ const page = () => {
 
     return (
         <div className='p-4 md:p-6 bg-gray-white'>
-            <select
-                name="products"
-                id="products"
-                className='border border-gray-300 p-2 rounded-md ml-2 bg-black text-white'
-                onChange={handleProductChange}
-                defaultValue=""
-            >
-                <option value="" disabled>Select a product</option>
-                {productData.map((product) => (
-                    <option key={product.id} value={product.id}>{product.name}</option>
-                ))}
-            </select>
             <table className='w-full mt-4 border-collapse'>
                 <thead>
                     <tr>
+                        <th className='border border-gray-300 p-2'>Choose</th>
                         <th className='border border-gray-300 p-2'>ID</th>
                         <th className='border border-gray-300 p-2'>Product Name</th>
                         <th className='border border-gray-300 p-2'>Price</th>
@@ -87,41 +77,6 @@ const page = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {selectedProduct && (
-                        <tr key={selectedProduct.id}>
-                            <td className='border border-gray-300 p-2'>{selectedProduct.id}</td>
-                            <td className='border border-gray-300 p-2'>{selectedProduct.name}</td>
-                            <td className='border border-gray-300 p-2'>${selectedProduct.price.toFixed(2)}</td>
-                            <td className='border border-gray-300 p-2'>
-                                <input
-                                    type="number"
-                                    className='w-full border border-gray-300 p-1 rounded'
-                                    value={selectedProductQuantity}
-                                    onChange={handleQuantityChange}
-                                />
-                            </td>
-                            <td className='border border-gray-300 p-2'>
-                                <input
-                                    type="number"
-                                    className='w-full border border-gray-300 p-1 rounded'
-                                    value={selectedProductDiscount}
-                                    onChange={handleDiscountChange}
-                                />
-                            </td>
-                            <td className='border border-gray-300 p-2'>
-                                ${((selectedProduct.price * selectedProductQuantity) - (selectedProduct.price * selectedProductQuantity * selectedProductDiscount / 100)).toFixed(2)}
-                            </td>
-                            <td className='border border-gray-300 p-2'>
-                                <button
-                                    onClick={handleTotalItems}
-                                    className='bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600'
-                                >
-                                    Add Item
-                                </button>
-                            </td>
-                        </tr>
-                    )}
-
                     {totalItems.map((item) => (
                         <tr key={item.id}>
                             <td className='border border-gray-300 p-2'>{item.id}</td>

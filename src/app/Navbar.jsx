@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import xeonwhite from "@/src/assets/xeonwhite.png";
-import xeonlogo from "@/src/assets/xeonlogo.png";
+import xeonwhite from "@/assets/xeonwhite.png";
+import xeonlogo from "@/assets/xeonlogo.png";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 
 export default function Navbar() {
@@ -12,13 +12,10 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Check if window is defined (to avoid SSR errors)
     if (typeof window !== "undefined") {
       const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
       setIsDarkTheme(mediaQuery.matches);
       console.log("isDarkTheme", mediaQuery.matches);
-
-      // Optional: Add listener for theme changes
       const handler = (e) => setIsDarkTheme(e.matches);
       mediaQuery.addEventListener("change", handler);
 
