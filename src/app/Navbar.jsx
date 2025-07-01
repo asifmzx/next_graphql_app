@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import xeonwhite from "@/assets/xeonwhite.png";
 import xeonlogo from "@/assets/xeonlogo.png";
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
 export default function Navbar() {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
@@ -41,7 +41,9 @@ export default function Navbar() {
         <div className="flex gap-[2vw]">
           <Link
             href="/"
-            className={`hover:text- ${currentPath === "/" ? "text-[#c2cc33]" : ""}`}
+            className={`hover:text- ${
+              currentPath === "/" ? "text-[#c2cc33]" : ""
+            }`}
           >
             Home
           </Link>
@@ -51,23 +53,11 @@ export default function Navbar() {
           <a className="hover:text-[#c2cc33]" href="/Pages/404">
             Services
           </a>
-          <a
-            className="hover:text-[#c2cc33]"
-            href="/Pages/404"
-          >
+          <a className="hover:text-[#c2cc33]" href="/Pages/404">
             About Us
           </a>
-          <a
-            className="hover:text-[#c2cc33]"
-            href="/Pages/404"
-          >
+          <a className="hover:text-[#c2cc33]" href="/Pages/404">
             Contact Us
-          </a>
-          <a
-            className="hover:text-[#c2cc33] font-extrabold"
-            href="/Pages/test"
-          >
-            Test<sub className="Dev text-xs text-red-600 mt-1">dev</sub>
           </a>
 
           {/* <Link
@@ -77,6 +67,49 @@ export default function Navbar() {
           >
             <span>Employer</span><sub className="Dev text-xs text-red-600 mt-10">dev</sub>
           </Link> */}
+
+          <Menu as="div" className="relative inline-block text-left ">
+            <div>
+              <MenuButton className="inline-flex w-full justify-center gap-0.5 hover:text-[#c2cc33]">
+                <span className="font-semibold">Tasks</span>
+                <sub className="Dev text-xs text-red-600 mt-1">dev</sub>
+              </MenuButton>
+            </div>
+
+            <MenuItems
+              transition
+              className="absolute right-0 z-10 mt-2 w-30 origin-top-right divide-y divide-gray-100 rounded-md bg-white/10 backdrop-blur-md shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+            >
+              <div className="py-1">
+                <MenuItem>
+                  <a
+                    href="/Pages/Tasks/test"
+                    className="block px-4 py-2 data-focus:bg-gray-100  data-focus:text-gray-900 data-focus:outline-hidden"
+                  >
+                    Table Control
+                  </a>
+                </MenuItem>
+              </div>
+              <div className="py-1">
+                <MenuItem>
+                  <a
+                    href="/Pages/Tasks/search_L1"
+                    className="block px-4 py-2 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                  >
+                    Search L1
+                  </a>
+                </MenuItem>
+                <MenuItem>
+                  <a
+                    href="/Pages/Tasks/search_L2"
+                    className="block px-4 py-2 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                  >
+                    Search L2
+                  </a>
+                </MenuItem>
+              </div>
+            </MenuItems>
+          </Menu>
 
           {/* <Link
             href="/Pages/on_dev"
@@ -89,7 +122,8 @@ export default function Navbar() {
           <Menu as="div" className="relative inline-block text-left ">
             <div>
               <MenuButton className="inline-flex w-full justify-center gap-0.5 hover:text-[#c2cc33]">
-                <span className="font-semibold">Projects</span><sub className="Dev text-xs text-red-600 mt-1">dev</sub>
+                <span className="font-semibold">Projects</span>
+                <sub className="Dev text-xs text-red-600 mt-1">dev</sub>
               </MenuButton>
             </div>
 
@@ -130,7 +164,8 @@ export default function Navbar() {
           <Menu as="div" className="relative inline-block text-left ">
             <div>
               <MenuButton className="inline-flex w-full justify-center gap-0.5 hover:text-[#c2cc33]">
-                <span className="font-semibold">Hooks</span><sub className="Dev text-xs text-red-600 mt-1">dev</sub>
+                <span className="font-semibold">Hooks</span>
+                <sub className="Dev text-xs text-red-600 mt-1">dev</sub>
               </MenuButton>
             </div>
 
@@ -195,7 +230,6 @@ export default function Navbar() {
                     useMemo
                   </a>
                 </MenuItem>
-
               </div>
               <div className="py-1">
                 <MenuItem>
