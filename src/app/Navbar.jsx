@@ -41,9 +41,8 @@ export default function Navbar() {
         <div className="flex gap-[2vw]">
           <Link
             href="/"
-            className={`hover:text- ${
-              currentPath === "/" ? "text-[#c2cc33]" : ""
-            }`}
+            className={`hover:text- ${currentPath === "/" ? "text-[#c2cc33]" : ""
+              }`}
           >
             Home
           </Link>
@@ -83,28 +82,28 @@ export default function Navbar() {
               <div className="py-1">
                 <MenuItem>
                   <a
-                    href="/Pages/Tasks/test"
+                    href="/Pages/Tasks/crud_Table"
                     className="block px-4 py-2 data-focus:bg-gray-100  data-focus:text-gray-900 data-focus:outline-hidden"
                   >
-                    Table Control
+                    Table_CRD
                   </a>
                 </MenuItem>
               </div>
               <div className="py-1">
                 <MenuItem>
                   <a
-                    href="/Pages/Tasks/search_L1"
+                    href="/Pages/Tasks/level_3_search"
                     className="block px-4 py-2 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                   >
-                    Search L1
+                    Search filtermap (L3)
                   </a>
                 </MenuItem>
                 <MenuItem>
                   <a
-                    href="/Pages/Tasks/search_L2"
+                    href="/Pages/Tasks/search_traverse"
                     className="block px-4 py-2 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                   >
-                    Search L2
+                    Search traverse
                   </a>
                 </MenuItem>
               </div>

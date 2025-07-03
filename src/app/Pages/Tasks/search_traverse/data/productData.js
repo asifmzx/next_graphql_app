@@ -12,12 +12,12 @@ export const productData = [
   {
     id: 3,
     name: "Tablet",
-    price: 499.99,
+    price: 499.99, 
   },
   {
     id: 4,
     name: "Smartwatch",
-    price: 299.99,
+    price: 299.99,  
   },
   {
     id: 5,
@@ -27,7 +27,7 @@ export const productData = [
   {
     id: 6,
     name: "Bluetooth Speaker",
-    price: 149.99,
+    price: 149.99,  
   },
   {
     id: 7,

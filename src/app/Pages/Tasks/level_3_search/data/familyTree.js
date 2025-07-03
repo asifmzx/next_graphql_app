@@ -1,15 +1,15 @@
-const familyTree = [
+ export const familyTree = [
   {
-    Name: "Grandpa Joe",
-    Age: 78,
-    Location: "Village A",
-    Parents: [
+    name: "Grandpa Joe",
+    age: 78,
+    location: "Village A",
+    parents: [
       {
         name: "Papa John",
         age: 50,
         location: "City B",
         money: 8000,
-        Children: [
+        children: [
           {
             name: "Alex",
             age: 27,
@@ -67,7 +67,7 @@ const familyTree = [
         age: 48,
         location: "City D",
         money: 6000,
-        Children: [
+        children: [
           {
             name: "Cousin Mike",
             age: 21,
@@ -87,16 +87,16 @@ const familyTree = [
     ],
   },
   {
-    Name: "Grandma Lucy",
-    Age: 75,
-    Location: "Village Z",
-    Parents: [
+    name: "Grandma Lucy",
+    age: 75,
+    location: "Village Z",
+    parents: [
       {
         name: "Mom Clara",
         age: 53,
         location: "City Y",
         money: 9000,
-        Children: [
+        children: [
           {
             name: "Meghan",
             age: 28,
