@@ -1,15 +1,17 @@
 "use client";
 import React from "react";
-import client from "@/src/apollo-client";
+import client from "@/apollo-client";
 import { ApolloProvider } from "@apollo/client";
 
-import AllCountry from "@/src/components/Pages/GraphQL/Vendure_GraphiQL/Customer_Wrapper";
+import CustomerDebugExample from "@/components/Pages/GraphQL/Vendure_GraphiQL/CustomerDebugExample";
+import CustomerMutationExample from "@/components/Pages/GraphQL/Vendure_GraphiQL/CustomerMutationExample";
 
 export default function Home() {
   return (
     <>
       <ApolloProvider client={client}>
-        <AllCountry />
+        {/* <CustomerDebugExample /> */}
+        <CustomerMutationExample />
       </ApolloProvider>
     </>
   );
