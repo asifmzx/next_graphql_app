@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
-// Query to fetch customers
 const GET_CUSTOMERS = gql`
   {
     customers(options: { skip: 0, take: 6, sort: { id: ASC } }) {
@@ -20,7 +19,6 @@ const GET_CUSTOMERS = gql`
   }
 `;
 
-// Simple update mutation for testing
 const UPDATE_CUSTOMER_SIMPLE = gql`
   mutation UpdateCustomer($input: UpdateCustomerInput!) {
     updateCustomer(input: $input) {
@@ -139,7 +137,6 @@ export default function CustomerDebugExample() {
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">Customer Update Debug</h1>
 
-      {/* Debug Info */}
       <div className="p-4 mb-6 rounded-lg">
         <h3 className="font-semibold mb-2">Debug Info:</h3>
         <p>
@@ -158,7 +155,6 @@ export default function CustomerDebugExample() {
         )}
       </div>
 
-      {/* Update Form */}
       {selectedCustomer && (
         <div className="border rounded-lg p-6 mb-6">
           <h2 className="text-xl font-semibold mb-4">
@@ -233,7 +229,6 @@ export default function CustomerDebugExample() {
         </div>
       )}
 
-      {/* Customer List */}
       <div className="border rounded-lg">
         <div className="p-4 border-b">
           <h2 className="text-xl font-semibold">

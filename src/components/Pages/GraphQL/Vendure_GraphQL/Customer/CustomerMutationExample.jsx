@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, gql } from "@apollo/client";
 
-// Query to fetch customers
 const GET_CUSTOMERS = gql`
   query GetCustomers {
     customers(options: { skip: 0, take: 10, sort: { id: ASC } }) {
@@ -20,7 +19,6 @@ const GET_CUSTOMERS = gql`
   }
 `;
 
-// Mutation to create a customer (Vendure format)
 const CREATE_CUSTOMER = gql`
   mutation CreateCustomer($input: CreateCustomerInput!) {
     createCustomer(input: $input) {
@@ -40,7 +38,6 @@ const CREATE_CUSTOMER = gql`
   }
 `;
 
-// Mutation to update a customer (Vendure format)
 const UPDATE_CUSTOMER = gql`
   mutation UpdateCustomer($input: UpdateCustomerInput!) {
     updateCustomer(input: $input) {
@@ -60,7 +57,6 @@ const UPDATE_CUSTOMER = gql`
   }
 `;
 
-// Mutation to delete a customer (Vendure format)
 const DELETE_CUSTOMER = gql`
   mutation DeleteCustomer($id: ID!) {
     deleteCustomer(id: $id) {
@@ -80,10 +76,8 @@ export default function CustomerMutationExample() {
     phoneNumber: "",
   });
 
-  // Query hook
   const { data, loading, error, refetch } = useQuery(GET_CUSTOMERS);
 
-  // Mutation hooks
   const [createCustomer, { loading: createLoading }] = useMutation(
     CREATE_CUSTOMER,
     {
@@ -135,7 +129,7 @@ export default function CustomerMutationExample() {
       onCompleted: (data) => {
         console.log("Customer deleted:", data.deleteCustomer);
         alert("Customer deleted successfully!");
-        refetch(); // Refresh the customer list
+        refetch();
       },
       onError: (error) => {
         console.error("Error deleting customer:", error);
@@ -144,7 +138,6 @@ export default function CustomerMutationExample() {
     }
   );
 
-  // Helper functions
   const resetForm = () => {
     setFormData({
       title: "",
@@ -163,7 +156,6 @@ export default function CustomerMutationExample() {
     }));
   };
 
-  // Mutation handlers
   const handleCreateCustomer = async (e) => {
     e.preventDefault();
 
@@ -260,7 +252,6 @@ export default function CustomerMutationExample() {
         Customer Management with GraphQL Mutations
       </h1>
 
-      {/* Create/Edit Form */}
       <div className="rounded-lg shadow-md p-6 mb-6">
         <h2 className="text-xl font-semibold mb-4">
           {selectedCustomer ? "Edit Customer" : "Create New Customer"}
@@ -371,7 +362,6 @@ export default function CustomerMutationExample() {
         </form>
       </div>
 
-      {/* Customer List */}
       <div className="rounded-lg shadow-md">
         <div className="p-6 border-b">
           <h2 className="text-xl font-semibold">

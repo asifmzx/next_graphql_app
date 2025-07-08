@@ -9,18 +9,18 @@ import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
 export default function Navbar() {
   const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [isClient, setIsClient] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-      setIsDarkTheme(mediaQuery.matches);
-      console.log("isDarkTheme", mediaQuery.matches);
-      const handler = (e) => setIsDarkTheme(e.matches);
-      mediaQuery.addEventListener("change", handler);
+    setIsClient(true);
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    setIsDarkTheme(mediaQuery.matches);
+    console.log("isDarkTheme", mediaQuery.matches);
+    const handler = (e) => setIsDarkTheme(e.matches);
+    mediaQuery.addEventListener("change", handler);
 
-      return () => mediaQuery.removeEventListener("change", handler);
-    }
+    return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
   const currentPath = usePathname();
@@ -31,7 +31,7 @@ export default function Navbar() {
         <div>
           <a href="/">
             <Image
-              src={isDarkTheme ? xeonwhite : xeonlogo}
+              src={isClient ? (isDarkTheme ? xeonwhite : xeonlogo) : xeonwhite}
               width={150}
               height={60}
               alt="Xeon logo"
@@ -151,10 +151,18 @@ export default function Navbar() {
               <div className="py-1">
                 <MenuItem>
                   <a
-                    href="/Pages/on_dev/country_api"
+                    href="/Pages/on_dev/vendure_crud"
                     className="block px-4 py-2 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                   >
-                    GraphQL
+                    GraphQL - Vendure
+                  </a>
+                </MenuItem>
+                <MenuItem>
+                  <a
+                    href="/Pages/on_dev/vendure_products"
+                    className="block px-4 py-2 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                  >
+                    GraphQL - Products
                   </a>
                 </MenuItem>
               </div>

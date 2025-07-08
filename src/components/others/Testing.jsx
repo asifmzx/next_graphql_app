@@ -57,7 +57,7 @@ export function test() {
               <div className="py-1">
                 <MenuItem>
                   <a
-                    href="/Pages/on_dev/country_api"
+                    href="/Pages/on_dev/vendure_crud"
                     className="block px-4 py-2 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                   >
                     GraphQL

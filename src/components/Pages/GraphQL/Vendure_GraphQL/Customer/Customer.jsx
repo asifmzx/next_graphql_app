@@ -20,7 +20,6 @@ const Get_Customers_QUERY = gql`
   }
 `;
 
-// Mutation to update a customer
 const UPDATE_CUSTOMER_MUTATION = gql`
   mutation UpdateCustomer($input: UpdateCustomerInput!) {
     updateCustomer(input: $input) {
@@ -34,7 +33,6 @@ const UPDATE_CUSTOMER_MUTATION = gql`
   }
 `;
 
-// Mutation to create a new customer
 const CREATE_CUSTOMER_MUTATION = gql`
   mutation CreateCustomer($input: CreateCustomerInput!) {
     createCustomer(input: $input) {
@@ -50,8 +48,8 @@ const CREATE_CUSTOMER_MUTATION = gql`
 
 export default function Customer() {
   const { data, loading, error, refetch } = useQuery(Get_Customers_QUERY);
-  
-  // State for managing forms and modals
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
@@ -63,12 +61,11 @@ export default function Customer() {
     phoneNumber: ""
   });
 
-  // Set up mutations
   const [updateCustomer, { loading: updateLoading }] = useMutation(UPDATE_CUSTOMER_MUTATION, {
     onCompleted: () => {
       setIsEditModalOpen(false);
       setSelectedCustomer(null);
-      refetch(); // Refetch the customers list
+      refetch();
       alert("Customer updated successfully!");
     },
     onError: (error) => {
@@ -86,7 +83,7 @@ export default function Customer() {
         emailAddress: "",
         phoneNumber: ""
       });
-      refetch(); // Refetch the customers list
+      refetch();
       alert("Customer created successfully!");
     },
     onError: (error) => {
@@ -94,7 +91,6 @@ export default function Customer() {
     }
   });
 
-  // Handler functions for mutations
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -280,7 +276,7 @@ export default function Customer() {
                 </div>
               </div>
               
-              {/* Add Edit Button */}
+              
               <div className="mt-4 pt-4 border-t border-gray-200">
                 <button
                   onClick={() => openEditModal(customer)}
@@ -294,7 +290,6 @@ export default function Customer() {
         ))}
       </motion.div>
 
-      {/* Create Customer Modal */}
       {isCreateModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
@@ -375,7 +370,6 @@ export default function Customer() {
         </div>
       )}
 
-      {/* Edit Customer Modal */}
       {isEditModalOpen && selectedCustomer && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
