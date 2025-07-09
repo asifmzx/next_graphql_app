@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, gql } from "@apollo/client";
+import { useIsClient } from "@/lib/client-only";
 
 const GET_CUSTOMERS = gql`
   query GetCustomers {
@@ -67,6 +68,7 @@ const DELETE_CUSTOMER = gql`
 `;
 
 export default function CustomerMutationExample() {
+  const isClient = useIsClient();
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [formData, setFormData] = useState({
     title: "",
@@ -76,7 +78,9 @@ export default function CustomerMutationExample() {
     phoneNumber: "",
   });
 
-  const { data, loading, error, refetch } = useQuery(GET_CUSTOMERS);
+  const { data, loading, error, refetch } = useQuery(GET_CUSTOMERS, {
+    skip: !isClient,
+  });
 
   const [createCustomer, { loading: createLoading }] = useMutation(
     CREATE_CUSTOMER,
@@ -240,7 +244,7 @@ export default function CustomerMutationExample() {
     resetForm();
   };
 
-  if (loading) return <div className="p-6">Loading customers...</div>;
+  if (!isClient || loading) return <div className="p-6">Loading customers...</div>;
   if (error)
     return <div className="p-6 text-red-600">Error: {error.message}</div>;
 
@@ -345,8 +349,8 @@ export default function CustomerMutationExample() {
                   ? "Updating..."
                   : "Creating..."
                 : selectedCustomer
-                ? "Update Customer"
-                : "Create Customer"}
+                  ? "Update Customer"
+                  : "Create Customer"}
             </button>
 
             {selectedCustomer && (

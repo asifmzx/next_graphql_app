@@ -27,7 +27,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="flex justify-between items-center w-[92%] h-20 mx-auto">
+      <nav className="flex justify-between items-center w-[92%] h-16 mx-auto">
         <div>
           <a href="/">
             <Image

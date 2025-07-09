@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, gql } from "@apollo/client";
+import { useIsClient } from "@/lib/client-only";
 
 const GET_CUSTOMERS = gql`
   {
@@ -37,6 +38,7 @@ const UPDATE_CUSTOMER_SIMPLE = gql`
 `;
 
 export default function CustomerDebugExample() {
+  const isClient = useIsClient();
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -44,7 +46,9 @@ export default function CustomerDebugExample() {
     emailAddress: "",
   });
 
-  const { data, loading, error, refetch } = useQuery(GET_CUSTOMERS);
+  const { data, loading, error, refetch } = useQuery(GET_CUSTOMERS, {
+    skip: !isClient,
+  });
 
   const [updateCustomer, { loading: updateLoading, error: updateError }] =
     useMutation(UPDATE_CUSTOMER_SIMPLE, {
@@ -127,7 +131,7 @@ export default function CustomerDebugExample() {
     });
   };
 
-  if (loading) return <div className="p-6">Loading customers...</div>;
+  if (!isClient || loading) return <div className="p-6">Loading customers...</div>;
   if (error)
     return <div className="p-6 text-red-600">Query Error: {error.message}</div>;
 
@@ -244,11 +248,10 @@ export default function CustomerDebugExample() {
               {customers.map((customer) => (
                 <div
                   key={customer.id}
-                  className={`border rounded-lg p-3 cursor-pointer transition-colors ${
-                    selectedCustomer?.id === customer.id
+                  className={`border rounded-lg p-3 cursor-pointer transition-colors ${selectedCustomer?.id === customer.id
                       ? "border-blue-300"
                       : "hover:bg-gray-50"
-                  }`}
+                    }`}
                   onClick={() => selectCustomerForEdit(customer)}
                 >
                   <div className="flex justify-between items-center">
