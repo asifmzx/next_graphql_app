@@ -1,16 +1,36 @@
 "use client";
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, gql } from "@apollo/client";
 import Image from 'next/image';
+import { useNavbar } from '@/contexts/NavbarContext';
 
 import Buttonv2 from '@/components/UI/Button/Buttonv2';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 
-const ProductsCart = () => {
+const ProductsCart = ({ isNavbar }) => {
   const [totalItems, setTotalItems] = useState(20);
   const [page, setPage] = useState(0);
   const [expandedProducts, setExpandedProducts] = useState(new Set());
+  const [mounted, setMounted] = useState(false);
+
+  const { showNavbar, hideNavbar } = useNavbar();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (isNavbar) {
+      showNavbar();
+    } else {
+      hideNavbar();
+    }
+
+    return () => {
+      showNavbar();
+    };
+  }, [isNavbar, showNavbar, hideNavbar]);
 
   const GET_Products = gql`
       query getProducts($takeProduct: Int, $pagination: Int){ 
@@ -43,6 +63,7 @@ const ProductsCart = () => {
 
   const { loading, error, data } = useQuery(GET_Products, {
     variables: { takeProduct: totalItems, pagination: page },
+    skip: !mounted,
   });
 
   const toggleProductExpansion = (productId) => {
@@ -55,9 +76,9 @@ const ProductsCart = () => {
     setExpandedProducts(newExpanded);
   };
 
-  if (loading) {
+  if (!mounted || loading) {
     return (
-      <div className='min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-gray-800 via-black to-yellow-500 flex justify-center items-center'>
+      <div className='min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-black via-black to-[#c4ca32] flex justify-center items-center'>
         <div className='text-white text-lg'>Loading...</div>
       </div>
     );
@@ -65,7 +86,7 @@ const ProductsCart = () => {
 
   if (error) {
     return (
-      <div className='min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-gray-800 via-black to-yellow-500 flex justify-center items-center'>
+      <div className='min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-black via-black to-[#c4ca32] flex justify-center items-center'>
         <p className='text-red-400'>Error: {error.message}</p>
       </div>
     );
@@ -76,14 +97,14 @@ const ProductsCart = () => {
 
   if (!products.length) {
     return (
-      <div className='min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-gray-800 via-black to-yellow-500 flex justify-center items-center'>
+      <div className='min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-black via-black to-[#c4ca32] flex justify-center items-center'>
         <div className='text-white text-lg'>No products found</div>
       </div>
     );
   }
 
   return (
-    <div className='min-h-screen w-full bg-gradient-to-br from-gray-800 via-black to-yellow-500'>
+    <div className='min-h-screen w-full bg-gradient-to-br from-black via-black to-[#c4ca32]'>
       <div className='p-4 sm:p-6 md:p-8 min-h-screen overflow-auto'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-3 sm:gap-4 md:gap-6'>
           {products.map(product => {
@@ -112,8 +133,6 @@ const ProductsCart = () => {
                   )}
 
                 <h3 className="text-white font-semibold text-sm md:text-base mb-3">{product.name}</h3>
-
-                {/* Basic info always visible */}
                 {product.variants && product.variants.length > 0 && (
                   <div className="mb-2">
                     <p className="text-green-300 text-sm font-semibold">
@@ -125,7 +144,6 @@ const ProductsCart = () => {
                   </div>
                 )}
 
-                {/* Expandable variants section */}
                 {isExpanded && product.variants && product.variants.length > 0 && (
                   <div className="space-y-2 mt-3 border-t border-white/20 pt-3">
                     <p className="text-white/90 text-xs font-medium">Available Variants:</p>
@@ -133,7 +151,7 @@ const ProductsCart = () => {
                       <div
                         key={variant.id}
                         className="bg-white/5 rounded-lg p-2 border border-white/20"
-                        onClick={(e) => e.stopPropagation()} // Prevent parent click
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <div className="flex justify-between items-start">
                           <div className="flex-1">
@@ -165,7 +183,6 @@ const ProductsCart = () => {
                   </div>
                 )}
 
-                {/* Expand/Collapse indicator */}
                 <div className="flex justify-center mt-3">
                   <div className="text-white/50 text-xs">
                     {isExpanded ? '▲ Click to collapse' : '▼ Click to expand variants'}

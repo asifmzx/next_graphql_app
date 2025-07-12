@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
         pathname: "/assets/**",
       },
     ],
+    unoptimized: true,
   },
 };
 

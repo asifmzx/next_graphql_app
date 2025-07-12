@@ -1,7 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import Navbar from "./Navbar";
+import ConditionalNavbar from "@/components/ConditionalNavbar";
 import "./globals.css";
 import { ApolloWrapper } from "@/lib/apollo-provider";
+import { NavbarProvider } from "@/contexts/NavbarContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +24,16 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning={true}
       >
-        <ApolloWrapper>
-          <Navbar />
-          {children}
-        </ApolloWrapper>
+        <NavbarProvider>
+          <ApolloWrapper>
+            <ConditionalNavbar />
+            <main className="pt-16">
+              {children}
+            </main>
+          </ApolloWrapper>
+        </NavbarProvider>
       </body>
     </html>
   );

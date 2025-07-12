@@ -27,7 +27,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="flex justify-between items-center w-[92%] h-16 mx-auto">
+      <nav className="fixed top-0 left-0 right-0 z-50 flex justify-between items-center w-full h-16 mx-auto bg-white/80 backdrop-blur-md dark:bg-black/900 px-10 shadow-sm">
         <div>
           <a href="/">
             <Image
@@ -159,7 +159,7 @@ export default function Navbar() {
                 </MenuItem>
                 <MenuItem>
                   <a
-                    href="/Pages/on_dev/vendure_products"
+                    href="/Pages/on_dev/ecommerce_vendure"
                     className="block px-4 py-2 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                   >
                     GraphQL - Products
