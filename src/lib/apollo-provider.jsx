@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@ap
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
-    uri: "http://localhost:3000/admin-api",
+    uri: "http://localhost:3000/shop-api",
     credentials: "include",
 });
 
@@ -19,7 +19,7 @@ function makeClient() {
     return new ApolloClient({
         link: authLink.concat(httpLink),
         cache: new InMemoryCache(),
-        ssrMode: typeof window === "undefined", // Disable SSR mode on client
+        ssrMode: typeof window === "undefined",
         defaultOptions: {
             watchQuery: {
                 errorPolicy: 'all',

@@ -3,6 +3,7 @@ import ConditionalNavbar from "@/components/ConditionalNavbar";
 import "./globals.css";
 import { ApolloWrapper } from "@/lib/apollo-provider";
 import { NavbarProvider } from "@/contexts/NavbarContext";
+import { CartProvider } from "@/contexts/CartContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,12 +28,14 @@ export default function RootLayout({ children }) {
         suppressHydrationWarning={true}
       >
         <NavbarProvider>
-          <ApolloWrapper>
-            <ConditionalNavbar />
-            <main className="pt-16">
-              {children}
-            </main>
-          </ApolloWrapper>
+          <CartProvider>
+            <ApolloWrapper>
+              <ConditionalNavbar />
+              <main className="pt-16">
+                {children}
+              </main>
+            </ApolloWrapper>
+          </CartProvider>
         </NavbarProvider>
       </body>
     </html>
