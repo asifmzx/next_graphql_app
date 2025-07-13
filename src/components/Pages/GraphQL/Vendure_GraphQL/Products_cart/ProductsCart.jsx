@@ -9,8 +9,7 @@ import { useCart } from '@/contexts/CartContext';
 import Buttonv2 from '@/components/UI/Button/Buttonv2';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import { FaShoppingCart } from 'react-icons/fa';
-import CartButton from '@/components/UI/ShoppingCart/CartButton';
-import ShoppingCart from '@/components/UI/ShoppingCart/ShoppingCart';
+import CartComponent from '@/components/UI/ShoppingCart/CartComponent';
 
 const ProductsCart = ({ isNavbar }) => {
   const [totalItems, setTotalItems] = useState(20);
@@ -21,7 +20,6 @@ const ProductsCart = ({ isNavbar }) => {
   const { showNavbar, hideNavbar } = useNavbar();
   const { addToCart, cartItems, openCart } = useCart();
 
-  // Test if cart context is working
   useEffect(() => {
     console.log('Cart items changed:', cartItems);
   }, [cartItems]);
@@ -145,12 +143,10 @@ const ProductsCart = ({ isNavbar }) => {
 
   return (
     <div className='min-h-screen w-full bg-gradient-to-br from-black via-black to-[#c4ca32]'>
-      {/* Fixed Cart Button */}
+      {/* Fixed Cart Component */}
       <div className="fixed top-20 right-4 z-40">
-        <CartButton />
+        <CartComponent />
       </div>
-
-      <ShoppingCart />
 
       {/* Main Content */}
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6'>        {/* Filter and Search Section */}
@@ -260,7 +256,7 @@ const ProductsCart = ({ isNavbar }) => {
                     )}
                   </div>
 
-                  
+
                   <div className="space-y-2">
                     {product.variants && product.variants.length > 0 && getStockLevel(product.variants[0]) > 0 && (
                       <button
