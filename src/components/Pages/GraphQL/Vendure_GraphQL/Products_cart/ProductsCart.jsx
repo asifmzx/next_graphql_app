@@ -121,8 +121,8 @@ const ProductsCart = ({ isNavbar }) => {
     return (
       <div className="min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex justify-center items-center">
         <div className="text-center">
-          <div className="w-16 h-16 mx-auto mb-4 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
-          <div className="text-cyan-300 text-xl font-semibold">
+          <div className="w-16 h-16 mx-auto mb-4 border-4 border-blue-400/30 border-t-blue-400 rounded-full animate-spin"></div>
+          <div className="text-blue-300 text-xl font-semibold">
             Loading Premium Gadgets...
           </div>
           <div className="text-slate-400 text-sm mt-2">
@@ -155,7 +155,7 @@ const ProductsCart = ({ isNavbar }) => {
       <div className="min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex justify-center items-center">
         <div className="text-center">
           <div className="text-6xl mb-4">🔍</div>
-          <div className="text-cyan-300 text-xl font-semibold mb-2">
+          <div className="text-blue-300 text-xl font-semibold mb-2">
             No Gadgets Found
           </div>
           <div className="text-slate-400">
@@ -193,10 +193,10 @@ const ProductsCart = ({ isNavbar }) => {
 
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-blue-500/10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
+            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-300 bg-clip-text text-transparent mb-4">
               TechGadgets Pro
             </h1>
             <p className="text-xl text-slate-300 max-w-2xl mx-auto">
@@ -214,12 +214,12 @@ const ProductsCart = ({ isNavbar }) => {
             <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full animate-pulse"></div>
-                  <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                  <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full animate-pulse"></div>
+                  <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
                     Premium Gadgets
                   </h2>
                 </div>
-                <span className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 px-4 py-2 rounded-full text-sm font-semibold border border-cyan-500/20">
+                <span className="bg-gradient-to-r from-blue-500/20 to-indigo-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-semibold border border-blue-500/20">
                   {totalItemsCount} Products Available
                 </span>
               </div>
@@ -235,7 +235,7 @@ const ProductsCart = ({ isNavbar }) => {
                       setTotalItems(Number(e.target.value));
                       setPage(0);
                     }}
-                    className="px-4 py-3 bg-slate-700/50 text-white border border-slate-600/50 rounded-xl text-sm backdrop-blur-sm focus:border-cyan-400/50 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all"
+                    className="px-4 py-3 bg-slate-700/50 text-white border border-slate-600/50 rounded-xl text-sm backdrop-blur-sm focus:border-blue-400/50 focus:outline-none focus:ring-2 focus:ring-blue-400/20 transition-all"
                   >
                     <option value={20} className="bg-slate-800 text-white">
                       20 per page
@@ -263,10 +263,10 @@ const ProductsCart = ({ isNavbar }) => {
             return (
               <div
                 key={product.id}
-                className="group relative bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/30 transition-all duration-500 transform hover:-translate-y-2"
+                className="group relative bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden shadow-2xl hover:shadow-blue-500/10 hover:border-blue-500/30 transition-all duration-500 transform hover:-translate-y-2"
               >
                 {/* Tech Border Animation */}
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/20 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-800/80 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                 <div className="relative overflow-hidden">
                   {((product.assets && product.assets.length > 0) ||
@@ -298,7 +298,7 @@ const ProductsCart = ({ isNavbar }) => {
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
                         <button
                           onClick={() => toggleProductExpansion(product.id)}
-                          className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-cyan-400 hover:to-blue-400 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                          className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-400 hover:to-indigo-400 transition-all duration-300 transform hover:scale-105 shadow-lg"
                         >
                           {isExpanded ? "🔒 Hide Specs" : "🔍 View Specs"}
                         </button>
@@ -309,7 +309,7 @@ const ProductsCart = ({ isNavbar }) => {
 
                 <div className="relative p-6">
                   <div className="mb-4">
-                    <h3 className="text-white font-bold text-lg mb-2 line-clamp-2 group-hover:text-cyan-300 transition-colors duration-300">
+                    <h3 className="text-white font-bold text-lg mb-2 line-clamp-2 group-hover:text-blue-300 transition-colors duration-300">
                       {product.name}
                     </h3>
 
@@ -364,7 +364,7 @@ const ProductsCart = ({ isNavbar }) => {
                             addToCart(product, product.variants[0], 1);
                             openCart();
                           }}
-                          className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-cyan-500/25 transform hover:scale-105"
+                          className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-400 hover:to-indigo-400 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-blue-500/25 transform hover:scale-105"
                         >
                           <FaShoppingCart size={16} />
                           Add to Cart
@@ -386,10 +386,10 @@ const ProductsCart = ({ isNavbar }) => {
                     <div className="border-t border-slate-700/50 bg-gradient-to-b from-slate-800/30 to-slate-900/30 backdrop-blur-sm">
                       <div className="p-6">
                         <h4 className="text-slate-200 font-bold mb-4 flex items-center gap-3">
-                          <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                          <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
                             ⚡ Available Models
                           </span>
-                          <span className="bg-gradient-to-r from-slate-700 to-slate-800 text-cyan-300 px-3 py-1 rounded-full text-xs font-semibold">
+                          <span className="bg-gradient-to-r from-slate-700 to-slate-800 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold">
                             {product.variants.length} Options
                           </span>
                         </h4>
@@ -398,7 +398,7 @@ const ProductsCart = ({ isNavbar }) => {
                           {product.variants.map((variant, index) => (
                             <div
                               key={variant.id}
-                              className="bg-gradient-to-r from-slate-700/30 to-slate-800/30 rounded-xl p-4 border border-slate-600/30 hover:border-cyan-500/30 transition-all duration-300 group/variant backdrop-blur-sm"
+                              className="bg-gradient-to-r from-slate-700/30 to-slate-800/30 rounded-xl p-4 border border-slate-600/30 hover:border-blue-500/30 transition-all duration-300 group/variant backdrop-blur-sm"
                             >
                               <div className="flex items-center justify-between mb-3">
                                 <div className="flex items-center gap-3">
@@ -410,14 +410,14 @@ const ProductsCart = ({ isNavbar }) => {
                                           width={48}
                                           height={48}
                                           alt={variant.name}
-                                          className="w-12 h-12 object-cover rounded-lg border-2 border-slate-600/50 group-hover/variant:border-cyan-500/50 transition-all duration-300"
+                                          className="w-12 h-12 object-cover rounded-lg border-2 border-slate-600/50 group-hover/variant:border-blue-500/50 transition-all duration-300"
                                           unoptimized
                                         />
-                                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full animate-pulse"></div>
+                                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full animate-pulse"></div>
                                       </div>
                                     )}
                                   <div>
-                                    <p className="text-white font-semibold text-sm group-hover/variant:text-cyan-300 transition-colors">
+                                    <p className="text-white font-semibold text-sm group-hover/variant:text-blue-300 transition-colors">
                                       {variant.name}
                                     </p>
                                     <p className="text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
@@ -454,7 +454,7 @@ const ProductsCart = ({ isNavbar }) => {
                                     addToCart(product, variant, 1);
                                     openCart();
                                   }}
-                                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-cyan-500/25 transform hover:scale-105"
+                                  className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-400 hover:to-indigo-400 text-white py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-blue-500/25 transform hover:scale-105"
                                 >
                                   <FaShoppingCart size={14} />
                                   Add This Model
@@ -480,13 +480,13 @@ const ProductsCart = ({ isNavbar }) => {
           <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-2xl">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
               <div className="text-slate-300 text-sm flex items-center gap-2">
-                <span className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full animate-pulse"></span>
+                <span className="w-2 h-2 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full animate-pulse"></span>
                 Showing{" "}
-                <span className="text-cyan-300 font-semibold">
+                <span className="text-blue-300 font-semibold">
                   {page + 1} - {Math.min(page + totalItems, totalItemsCount)}
                 </span>{" "}
                 of{" "}
-                <span className="text-cyan-300 font-semibold">
+                <span className="text-blue-300 font-semibold">
                   {totalItemsCount}
                 </span>{" "}
                 premium gadgets
@@ -497,18 +497,18 @@ const ProductsCart = ({ isNavbar }) => {
                   variant="transparent"
                   Icon={FaChevronLeft}
                   onClick={() => setPage(Math.max(0, page - totalItems))}
-                  className="bg-slate-700/50 hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-blue-500/20 border border-slate-600/50 hover:border-cyan-500/30 px-4 py-3 rounded-xl transition-all duration-300 text-slate-300 hover:text-cyan-300"
+                  className="bg-slate-700/50 hover:bg-gradient-to-r hover:from-blue-500/20 hover:to-indigo-500/20 border border-slate-600/50 hover:border-blue-500/30 px-4 py-3 rounded-xl transition-all duration-300 text-slate-300 hover:text-blue-300"
                   disabled={page === 0}
                 />
 
                 <div className="bg-gradient-to-r from-slate-700/50 to-slate-800/50 px-4 py-3 rounded-xl border border-slate-600/50">
                   <span className="text-slate-300 text-sm font-medium">
                     Page{" "}
-                    <span className="text-cyan-300 font-bold">
+                    <span className="text-blue-300 font-bold">
                       {Math.floor(page / totalItems) + 1}
                     </span>{" "}
                     of{" "}
-                    <span className="text-cyan-300 font-bold">
+                    <span className="text-blue-300 font-bold">
                       {Math.ceil(totalItemsCount / totalItems)}
                     </span>
                   </span>
@@ -518,7 +518,7 @@ const ProductsCart = ({ isNavbar }) => {
                   variant="transparent"
                   Icon={FaChevronRight}
                   onClick={() => setPage(page + totalItems)}
-                  className="bg-slate-700/50 hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-blue-500/20 border border-slate-600/50 hover:border-cyan-500/30 px-4 py-3 rounded-xl transition-all duration-300 text-slate-300 hover:text-cyan-300"
+                  className="bg-slate-700/50 hover:bg-gradient-to-r hover:from-blue-500/20 hover:to-indigo-500/20 border border-slate-600/50 hover:border-blue-500/30 px-4 py-3 rounded-xl transition-all duration-300 text-slate-300 hover:text-blue-300"
                   disabled={page + totalItems >= totalItemsCount}
                 />
               </div>
