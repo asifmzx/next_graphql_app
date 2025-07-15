@@ -1,15 +1,15 @@
 "use client";
-import React from 'react'
-import { useState, useEffect } from 'react';
+import React from "react";
+import { useState, useEffect } from "react";
 import { useQuery, gql } from "@apollo/client";
-import Image from 'next/image';
-import { useNavbar } from '@/contexts/NavbarContext';
-import { useCart } from '@/contexts/CartContext';
+import Image from "next/image";
+import { useNavbar } from "@/contexts/NavbarContext";
+import { useCart } from "@/contexts/CartContext";
 
-import Buttonv2 from '@/components/UI/Button/Buttonv2';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
-import { FaShoppingCart } from 'react-icons/fa';
-import CartComponent from '@/components/UI/ShoppingCart/CartComponent';
+import Buttonv2 from "@/components/UI/Button/Buttonv2";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import { FaShoppingCart } from "react-icons/fa";
+import CartComponent from "@/components/UI/ShoppingCart/CartComponent";
 
 const ProductsCart = ({ isNavbar }) => {
   const [totalItems, setTotalItems] = useState(20);
@@ -21,7 +21,7 @@ const ProductsCart = ({ isNavbar }) => {
   const { addToCart, cartItems, openCart } = useCart();
 
   useEffect(() => {
-    console.log('Cart items changed:', cartItems);
+    console.log("Cart items changed:", cartItems);
   }, [cartItems]);
 
   useEffect(() => {
@@ -41,30 +41,30 @@ const ProductsCart = ({ isNavbar }) => {
   }, [isNavbar, showNavbar, hideNavbar]);
 
   const GET_Products = gql`
-      query getProducts($takeProduct: Int, $pagination: Int){ 
-        products(options: {take:$takeProduct, skip:$pagination}){
-          totalItems
-          items{
+    query getProducts($takeProduct: Int, $pagination: Int) {
+      products(options: { take: $takeProduct, skip: $pagination }) {
+        totalItems
+        items {
+          id
+          name
+          assets {
+            id
+            preview
+          }
+          variants {
             id
             name
-            assets{
+            price
+            assets {
               id
               preview
             }
-            variants{
-              id
-              name
-              price
-              assets{
-                id
-                preview
-              }
-              stockLevel
-            }
+            stockLevel
           }
         }
       }
-    `;
+    }
+  `;
 
   const { loading, error, data } = useQuery(GET_Products, {
     variables: { takeProduct: totalItems, pagination: page },
@@ -92,14 +92,17 @@ const ProductsCart = ({ isNavbar }) => {
       case "OUT_OF_STOCK":
         return "Out of Stock";
       default:
-        if (typeof stockLevel === 'number' && stockLevel > 0) {
+        if (typeof stockLevel === "number" && stockLevel > 0) {
           return `Stock: ${stockLevel}`;
         }
         return "Out of Stock";
     }
   };
   const getStockLevel = (variant) => {
-    if (variant.stockLevel === "IN_STOCK" || variant.stockLevel === "LOW_STOCK") {
+    if (
+      variant.stockLevel === "IN_STOCK" ||
+      variant.stockLevel === "LOW_STOCK"
+    ) {
       return 100;
     }
 
@@ -107,7 +110,7 @@ const ProductsCart = ({ isNavbar }) => {
       return 0;
     }
 
-    if (typeof variant.stockLevel === 'number' && variant.stockLevel > 0) {
+    if (typeof variant.stockLevel === "number" && variant.stockLevel > 0) {
       return variant.stockLevel;
     }
 
@@ -116,16 +119,30 @@ const ProductsCart = ({ isNavbar }) => {
 
   if (!mounted || loading) {
     return (
-      <div className='min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-black via-black to-[#c4ca32] flex justify-center items-center'>
-        <div className='text-white text-lg'>Loading...</div>
+      <div className="min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex justify-center items-center">
+        <div className="text-center">
+          <div className="w-16 h-16 mx-auto mb-4 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
+          <div className="text-cyan-300 text-xl font-semibold">
+            Loading Premium Gadgets...
+          </div>
+          <div className="text-slate-400 text-sm mt-2">
+            Preparing the latest tech for you
+          </div>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className='min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-black via-black to-[#c4ca32] flex justify-center items-center'>
-        <p className='text-red-400'>Error: {error.message}</p>
+      <div className="min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex justify-center items-center">
+        <div className="text-center">
+          <div className="text-6xl mb-4">⚠️</div>
+          <p className="text-red-400 text-xl font-semibold mb-2">
+            System Error
+          </p>
+          <p className="text-slate-300">{error.message}</p>
+        </div>
       </div>
     );
   }
@@ -135,120 +152,202 @@ const ProductsCart = ({ isNavbar }) => {
 
   if (!products.length) {
     return (
-      <div className='min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-black via-black to-[#c4ca32] flex justify-center items-center'>
-        <div className='text-white text-lg'>No products found</div>
+      <div className="min-h-screen w-full p-4 sm:p-6 md:p-8 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex justify-center items-center">
+        <div className="text-center">
+          <div className="text-6xl mb-4">🔍</div>
+          <div className="text-cyan-300 text-xl font-semibold mb-2">
+            No Gadgets Found
+          </div>
+          <div className="text-slate-400">
+            Check back later for new arrivals
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className='min-h-screen w-full bg-gradient-to-br from-black via-black to-[#c4ca32]'>
+    <div className=" pt-16 min-h-screen w-full bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+      {/* Custom CSS for scrollbar */}
+      <style jsx global>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(15, 23, 42, 0.3);
+          border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: linear-gradient(to bottom, #06b6d4, #3b82f6);
+          border-radius: 10px;
+          border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(to bottom, #0891b2, #2563eb);
+        }
+      `}</style>
       {/* Fixed Cart Component */}
       <div className="fixed top-20 right-4 z-40">
         <CartComponent />
       </div>
 
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-blue-500/10 to-purple-500/10"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
+              TechGadgets Pro
+            </h1>
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+              Discover the latest cutting-edge technology and premium gadgets
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Main Content */}
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6'>        {/* Filter and Search Section */}
-        <div className="mb-6">
-          <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 shadow-lg">
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-              <div className="flex items-center gap-3">
-                <h2 className="text-xl font-bold text-white drop-shadow-lg">
-                  Products
-                </h2>
-                <span className="bg-blue-500/20 text-blue-300 px-2 py-1 rounded text-sm font-medium">
-                  {totalItemsCount} items
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        {/* Filter and Search Section */}
+        <div className="mb-8">
+          <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-2xl">
+            <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full animate-pulse"></div>
+                  <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                    Premium Gadgets
+                  </h2>
+                </div>
+                <span className="bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 px-4 py-2 rounded-full text-sm font-semibold border border-cyan-500/20">
+                  {totalItemsCount} Products Available
                 </span>
               </div>
 
-              <div className="flex items-center gap-3">
-                <select
-                  value={totalItems}
-                  onChange={(e) => {
-                    setTotalItems(Number(e.target.value));
-                    setPage(0);
-                  }}
-                  className='px-3 py-2 bg-white/10 text-white border border-white/30 rounded-lg text-sm backdrop-blur-sm focus:border-blue-400/50 focus:outline-none'
-                >
-                  <option value={20} className='bg-gray-800 text-white'>20 per page</option>
-                  <option value={50} className='bg-gray-800 text-white'>50 per page</option>
-                  <option value={100} className='bg-gray-800 text-white'>100 per page</option>
-                </select>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-slate-300 text-sm font-medium">
+                    Show:
+                  </span>
+                  <select
+                    value={totalItems}
+                    onChange={(e) => {
+                      setTotalItems(Number(e.target.value));
+                      setPage(0);
+                    }}
+                    className="px-4 py-3 bg-slate-700/50 text-white border border-slate-600/50 rounded-xl text-sm backdrop-blur-sm focus:border-cyan-400/50 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all"
+                  >
+                    <option value={20} className="bg-slate-800 text-white">
+                      20 per page
+                    </option>
+                    <option value={50} className="bg-slate-800 text-white">
+                      50 per page
+                    </option>
+                    <option value={100} className="bg-slate-800 text-white">
+                      100 per page
+                    </option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-3 gap-4'>
-          {products.map(product => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {products.map((product) => {
             const isExpanded = expandedProducts.has(product.id);
-            const minPrice = product.variants && product.variants.length > 0
-              ? Math.min(...product.variants.map(v => v.price)) / 100
-              : 0;
+            const minPrice =
+              product.variants && product.variants.length > 0
+                ? Math.min(...product.variants.map((v) => v.price)) / 100
+                : 0;
 
             return (
               <div
                 key={product.id}
-                className='group bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl overflow-hidden shadow-lg hover:shadow-xl hover:bg-white/15 transition-all duration-300'
+                className="group relative bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl overflow-hidden shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/30 transition-all duration-500 transform hover:-translate-y-2"
               >
+                {/* Tech Border Animation */}
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/20 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
                 <div className="relative overflow-hidden">
                   {((product.assets && product.assets.length > 0) ||
-                    (product.variants && product.variants.length > 0 && product.variants[0].assets && product.variants[0].assets.length > 0)) && (
-                      <div className="relative">
-                        <Image
-                          src={
-                            product.assets && product.assets.length > 0
-                              ? product.assets[0].preview
-                              : product.variants[0].assets[0].preview
-                          }
-                          width={400}
-                          height={300}
-                          alt={product.name}
-                          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                          unoptimized
-                        />
-                        <div className="absolute top-2 left-2">
-                          <span className="bg-green-500 text-white px-2 py-1 rounded-lg text-xs font-medium">
-                            New
-                          </span>
-                        </div>
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                          <button
-                            onClick={() => toggleProductExpansion(product.id)}
-                            className="bg-white/90 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-white transition-colors"
-                          >
-                            {isExpanded ? 'Hide Details' : 'Quick View'}
-                          </button>
+                    (product.variants &&
+                      product.variants.length > 0 &&
+                      product.variants[0].assets &&
+                      product.variants[0].assets.length > 0)) && (
+                    <div className="relative">
+                      <Image
+                        src={
+                          product.assets && product.assets.length > 0
+                            ? product.assets[0].preview
+                            : product.variants[0].assets[0].preview
+                        }
+                        width={400}
+                        height={300}
+                        alt={product.name}
+                        className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
+                        unoptimized
+                      />
+                      {/* Premium Badge */}
+                      <div className="absolute top-4 left-4">
+                        <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 bg-black rounded-full animate-pulse"></span>
+                          PREMIUM
                         </div>
                       </div>
-                    )}
+                      {/* Tech Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                        <button
+                          onClick={() => toggleProductExpansion(product.id)}
+                          className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-cyan-400 hover:to-blue-400 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                        >
+                          {isExpanded ? "🔒 Hide Specs" : "🔍 View Specs"}
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                <div className="p-4">
-                  <div className="mb-3">
-                    <h3 className="text-white font-semibold text-base mb-1 line-clamp-2 drop-shadow-lg">
+                <div className="relative p-6">
+                  <div className="mb-4">
+                    <h3 className="text-white font-bold text-lg mb-2 line-clamp-2 group-hover:text-cyan-300 transition-colors duration-300">
                       {product.name}
                     </h3>
 
                     {product.variants && product.variants.length > 0 && (
-                      <div className="mb-3">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-xl font-bold text-green-300 drop-shadow-lg">
-                            ${minPrice}
+                      <div className="mb-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <span className="text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                              ${minPrice}
+                            </span>
                             {product.variants.length > 1 && (
-                              <span className="text-white/60 text-sm ml-1">and up</span>
+                              <span className="text-slate-400 text-sm">
+                                starting from
+                              </span>
                             )}
-                          </span>
+                          </div>
                           {product.variants.length > 1 && (
-                            <span className="bg-blue-500/20 text-blue-300 px-2 py-1 rounded text-xs font-medium">
-                              {product.variants.length} variant{product.variants.length > 1 ? 's' : ''}
+                            <span className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 px-3 py-1 rounded-full text-xs font-semibold border border-purple-500/20">
+                              {product.variants.length} Models
                             </span>
                           )}
                         </div>
 
-                        <div className="flex items-center gap-2">
-                          <div className={`w-2 h-2 rounded-full ${getStockLevel(product.variants[0]) > 0 ? 'bg-green-400' : 'bg-red-400'}`}></div>
-                          <span className={`text-xs font-medium ${getStockLevel(product.variants[0]) > 0 ? 'text-green-300' : 'text-red-300'}`}>
+                        <div className="flex items-center gap-3">
+                          <div
+                            className={`w-3 h-3 rounded-full ${
+                              getStockLevel(product.variants[0]) > 0
+                                ? "bg-gradient-to-r from-green-400 to-emerald-400 shadow-lg shadow-green-400/30"
+                                : "bg-gradient-to-r from-red-400 to-pink-400 shadow-lg shadow-red-400/30"
+                            } animate-pulse`}
+                          ></div>
+                          <span
+                            className={`text-sm font-semibold ${
+                              getStockLevel(product.variants[0]) > 0
+                                ? "text-green-300"
+                                : "text-red-300"
+                            }`}
+                          >
                             {getStockDisplay(product.variants[0])}
                           </span>
                         </div>
@@ -256,125 +355,170 @@ const ProductsCart = ({ isNavbar }) => {
                     )}
                   </div>
 
-
-                  <div className="space-y-2">
-                    {product.variants && product.variants.length > 0 && getStockLevel(product.variants[0]) > 0 && (
-                      <button
-                        onClick={() => {
-                          addToCart(product, product.variants[0], 1);
-                          openCart();
-                        }}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2"
-                      >
-                        <FaShoppingCart size={14} />
-                        Add to Cart
-                      </button>
-                    )}
+                  <div className="space-y-3">
+                    {product.variants &&
+                      product.variants.length > 0 &&
+                      getStockLevel(product.variants[0]) > 0 && (
+                        <button
+                          onClick={() => {
+                            addToCart(product, product.variants[0], 1);
+                            openCart();
+                          }}
+                          className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white py-3 px-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-cyan-500/25 transform hover:scale-105"
+                        >
+                          <FaShoppingCart size={16} />
+                          Add to Cart
+                        </button>
+                      )}
 
                     <button
                       onClick={() => toggleProductExpansion(product.id)}
-                      className="w-full bg-white/10 hover:bg-white/20 text-white py-2 px-4 rounded-lg font-medium transition-all duration-300"
+                      className="w-full bg-slate-700/50 hover:bg-slate-600/50 text-slate-300 hover:text-white py-3 px-4 rounded-xl font-medium transition-all duration-300 border border-slate-600/50 hover:border-slate-500/50"
                     >
-                      {isExpanded ? 'Hide Variants' : 'View All Variants'}
+                      {isExpanded ? "📱 Hide All Models" : "🔧 View All Models"}
                     </button>
                   </div>
                 </div>
 
-                {isExpanded && product.variants && product.variants.length > 0 && (
-                  <div className="border-t border-white/20 bg-white/5">
-                    <div className="p-4">
-                      <h4 className="text-white/90 font-medium mb-3 flex items-center gap-2">
-                        <span>Available Variants</span>
-                        <span className="bg-white/20 text-white px-2 py-1 rounded text-xs">
-                          {product.variants.length}
-                        </span>
-                      </h4>
+                {isExpanded &&
+                  product.variants &&
+                  product.variants.length > 0 && (
+                    <div className="border-t border-slate-700/50 bg-gradient-to-b from-slate-800/30 to-slate-900/30 backdrop-blur-sm">
+                      <div className="p-6">
+                        <h4 className="text-slate-200 font-bold mb-4 flex items-center gap-3">
+                          <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                            ⚡ Available Models
+                          </span>
+                          <span className="bg-gradient-to-r from-slate-700 to-slate-800 text-cyan-300 px-3 py-1 rounded-full text-xs font-semibold">
+                            {product.variants.length} Options
+                          </span>
+                        </h4>
 
-                      <div className="space-y-2 max-h-68 overflow-y-auto custom-scrollbar">
-                        {product.variants.map((variant, index) => (
-                          <div
-                            key={variant.id}
-                            className="bg-white/10 rounded-lg p-3 border border-white/20 hover:bg-white/15 transition-all duration-300"
-                          >
-                            <div className="flex items-center justify-between mb-2">
-                              <div className="flex items-center gap-2">
-                                {variant.assets && variant.assets.length > 0 && (
-                                  <Image
-                                    src={variant.assets[0].preview}
-                                    width={32}
-                                    height={32}
-                                    alt={variant.name}
-                                    className="w-8 h-8 object-cover rounded border border-white/20"
-                                    unoptimized
-                                  />
-                                )}
-                                <div>
-                                  <p className="text-white font-medium text-sm">{variant.name}</p>
-                                  <p className="text-green-300 font-bold text-sm">${variant.price / 100}</p>
+                        <div className="space-y-4 max-h-80 overflow-y-auto custom-scrollbar">
+                          {product.variants.map((variant, index) => (
+                            <div
+                              key={variant.id}
+                              className="bg-gradient-to-r from-slate-700/30 to-slate-800/30 rounded-xl p-4 border border-slate-600/30 hover:border-cyan-500/30 transition-all duration-300 group/variant backdrop-blur-sm"
+                            >
+                              <div className="flex items-center justify-between mb-3">
+                                <div className="flex items-center gap-3">
+                                  {variant.assets &&
+                                    variant.assets.length > 0 && (
+                                      <div className="relative">
+                                        <Image
+                                          src={variant.assets[0].preview}
+                                          width={48}
+                                          height={48}
+                                          alt={variant.name}
+                                          className="w-12 h-12 object-cover rounded-lg border-2 border-slate-600/50 group-hover/variant:border-cyan-500/50 transition-all duration-300"
+                                          unoptimized
+                                        />
+                                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full animate-pulse"></div>
+                                      </div>
+                                    )}
+                                  <div>
+                                    <p className="text-white font-semibold text-sm group-hover/variant:text-cyan-300 transition-colors">
+                                      {variant.name}
+                                    </p>
+                                    <p className="text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                                      ${variant.price / 100}
+                                    </p>
+                                  </div>
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                  <div
+                                    className={`w-2 h-2 rounded-full ${
+                                      getStockLevel(variant) > 0
+                                        ? "bg-gradient-to-r from-green-400 to-emerald-400 shadow-lg shadow-green-400/50"
+                                        : "bg-gradient-to-r from-red-400 to-pink-400 shadow-lg shadow-red-400/50"
+                                    } animate-pulse`}
+                                  ></div>
+                                  <span
+                                    className={`text-xs font-semibold ${
+                                      getStockLevel(variant) > 0
+                                        ? "text-green-300"
+                                        : "text-red-300"
+                                    }`}
+                                  >
+                                    {getStockLevel(variant) > 0
+                                      ? "✅ Available"
+                                      : "❌ Sold Out"}
+                                  </span>
                                 </div>
                               </div>
 
-                              <div className="flex items-center gap-1">
-                                <div className={`w-1.5 h-1.5 rounded-full ${getStockLevel(variant) > 0 ? 'bg-green-400' : 'bg-red-400'}`}></div>
-                                <span className={`text-xs ${getStockLevel(variant) > 0 ? 'text-green-300' : 'text-red-300'}`}>
-                                  {getStockLevel(variant) > 0 ? 'In Stock' : 'Out of Stock'}
-                                </span>
-                              </div>
+                              {getStockLevel(variant) > 0 ? (
+                                <button
+                                  onClick={() => {
+                                    addToCart(product, variant, 1);
+                                    openCart();
+                                  }}
+                                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-white py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-cyan-500/25 transform hover:scale-105"
+                                >
+                                  <FaShoppingCart size={14} />
+                                  Add This Model
+                                </button>
+                              ) : (
+                                <div className="w-full bg-gradient-to-r from-slate-600/50 to-slate-700/50 text-slate-400 py-3 px-4 rounded-lg text-sm text-center font-medium border border-slate-600/30">
+                                  🚫 Currently Unavailable
+                                </div>
+                              )}
                             </div>
-
-                            {getStockLevel(variant) > 0 ? (
-                              <button
-                                onClick={() => {
-                                  addToCart(product, variant, 1);
-                                  openCart();
-                                }}
-                                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-3 rounded text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2"
-                              >
-                                <FaShoppingCart size={12} />
-                                Add This Variant
-                              </button>
-                            ) : (
-                              <div className="w-full bg-gray-600/50 text-gray-300 py-2 px-3 rounded text-sm text-center">
-                                Out of Stock
-                              </div>
-                            )}
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
               </div>
             );
           })}
         </div>
 
         {/* Pagination Section */}
-        <div className='mt-8'>
-          <div className='bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl p-4 shadow-lg'>
-            <div className='flex flex-col sm:flex-row justify-between items-center gap-4'>
-              <div className='text-white/80 text-sm'>
-                Showing {page + 1} - {Math.min(page + totalItems, totalItemsCount)} of {totalItemsCount} products
+        <div className="mt-12">
+          <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-6 shadow-2xl">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
+              <div className="text-slate-300 text-sm flex items-center gap-2">
+                <span className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full animate-pulse"></span>
+                Showing{" "}
+                <span className="text-cyan-300 font-semibold">
+                  {page + 1} - {Math.min(page + totalItems, totalItemsCount)}
+                </span>{" "}
+                of{" "}
+                <span className="text-cyan-300 font-semibold">
+                  {totalItemsCount}
+                </span>{" "}
+                premium gadgets
               </div>
 
-              <div className='flex items-center space-x-3'>
+              <div className="flex items-center space-x-4">
                 <Buttonv2
                   variant="transparent"
                   Icon={FaChevronLeft}
                   onClick={() => setPage(Math.max(0, page - totalItems))}
-                  className='bg-white/10 hover:bg-white/20 border border-white/30 px-3 py-2 rounded-lg transition-all duration-300'
+                  className="bg-slate-700/50 hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-blue-500/20 border border-slate-600/50 hover:border-cyan-500/30 px-4 py-3 rounded-xl transition-all duration-300 text-slate-300 hover:text-cyan-300"
                   disabled={page === 0}
                 />
 
-                <span className="text-white/70 text-sm">
-                  Page {Math.floor(page / totalItems) + 1} of {Math.ceil(totalItemsCount / totalItems)}
-                </span>
+                <div className="bg-gradient-to-r from-slate-700/50 to-slate-800/50 px-4 py-3 rounded-xl border border-slate-600/50">
+                  <span className="text-slate-300 text-sm font-medium">
+                    Page{" "}
+                    <span className="text-cyan-300 font-bold">
+                      {Math.floor(page / totalItems) + 1}
+                    </span>{" "}
+                    of{" "}
+                    <span className="text-cyan-300 font-bold">
+                      {Math.ceil(totalItemsCount / totalItems)}
+                    </span>
+                  </span>
+                </div>
 
                 <Buttonv2
                   variant="transparent"
                   Icon={FaChevronRight}
                   onClick={() => setPage(page + totalItems)}
-                  className='bg-white/10 hover:bg-white/20 border border-white/30 px-3 py-2 rounded-lg transition-all duration-300'
+                  className="bg-slate-700/50 hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-blue-500/20 border border-slate-600/50 hover:border-cyan-500/30 px-4 py-3 rounded-xl transition-all duration-300 text-slate-300 hover:text-cyan-300"
                   disabled={page + totalItems >= totalItemsCount}
                 />
               </div>
@@ -383,7 +527,7 @@ const ProductsCart = ({ isNavbar }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductsCart
+export default ProductsCart;

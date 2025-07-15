@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
           <CartProvider>
             <ApolloWrapper>
               <ConditionalNavbar />
-              <main className="pt-16">
+              <main>
                 {children}
               </main>
             </ApolloWrapper>
