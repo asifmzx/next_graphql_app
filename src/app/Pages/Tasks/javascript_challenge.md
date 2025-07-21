@@ -53,9 +53,9 @@ const inventory = [
 
 **Questions:**
 
-1. Identify products that are low on stock across all warehouses based on their reorder thresholds.
-2. Find the total stock available for each product across all warehouses.
-3. List the names of suppliers for products that are below the reorder threshold.
+1. Identify products that are low on stock across all warehouses based on their reorder thresholds. //done
+2. Find the total stock available for each product across all warehouses. with min, max        //done
+3. List the names of suppliers for products that are below the reorder threshold. //done
 4. Check if all products have at least one supplier with a priority of 1.
 5. Create a summary of each product, showing its name, total stock, and primary supplier.
 
