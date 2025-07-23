@@ -23,6 +23,6 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "src/app/Pages/rakib/page.jsx", "src/app/Pages/tasks/testv2/page.jsx"],
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "src/app/pages/rakib/page.jsx", "src/app/pages/tasks/testv2/page.jsx"],
   "exclude": ["node_modules"]
 }
